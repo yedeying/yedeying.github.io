@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux下xampp的install | Yedeying&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="the way of restart:
+1sudo /opt/lampp/lampp restart
+
+config root:
+123/opt/lampp/etc/httpd.conf/opt/lampp/etc/httpd-xampp.conf# in each file we should change the deny config to allow
+
+and one more thing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下xampp的install">
+<meta property="og:url" content="http://yedeying999.github.io/2014/04/07/xampp-install/">
+<meta property="og:site_name" content="Yedeying's blog">
+<meta property="og:description" content="the way of restart:
+1sudo /opt/lampp/lampp restart
+
+config root:
+123/opt/lampp/etc/httpd.conf/opt/lampp/etc/httpd-xampp.conf# in each file we should change the deny config to allow
+
+and one more thing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下xampp的install">
+<meta name="twitter:description" content="the way of restart:
+1sudo /opt/lampp/lampp restart
+
+config root:
+123/opt/lampp/etc/httpd.conf/opt/lampp/etc/httpd-xampp.conf# in each file we should change the deny config to allow
+
+and one more thing">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Yedeying&#39;s blog" type="application/atom+xml">
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="overlay"></div>
+  <div id="header-outer" class="outer">
+    <div id="profile_img">
+      <img id="circle_img" src="holder.js/150x150" />
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yedeying&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-menu">
+      <nav id="main-nav">
+        <ul>
+        
+          <li><a href="/"><i class="fa fa-home icon-setting"></i></a></li>
+        
+          <li><a href="/archives"><i class="fa fa-archive icon-setting"></i></a></li>
+        
+          <li><a href="/about"><i class="fa fa-user icon-setting"></i></a></li>
+        
+        
+          <li><a href="/atom.xml"><i class="fa fa-rss %> icon-setting"></i></a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-xampp-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/07/xampp-install/" class="article-date">
+  <time datetime="2014-04-07T14:56:09.000Z" itemprop="datePublished">4月 7 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux下xampp的install
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>the way of restart:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> /opt/lampp/lampp restart</div></pre></td></tr></table></figure>
+
+<p>config root:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/opt/lampp/etc/httpd.conf</div><div class="line">/opt/lampp/etc/httpd-xampp.conf</div><div class="line"><span class="comment"># in each file we should change the deny config to allow</span></div></pre></td></tr></table></figure>
+
+<p>and one more thing is to change the rights of htdocs directory, with the order below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> chmod a+w -R /opt/lampp/htdocs  <span class="comment">#change the rights of htdocs directory</span></div><div class="line"><span class="built_in">sudo</span> ln -sf /opt/lampp/htdocs/ ~/Public/  <span class="comment">#create a link of htdocs for convience</span></div></pre></td></tr></table></figure>
+
+<p>reference pages:<br><br><a href="http://haobinnan.blog.51cto.com/775253/750435" target="_blank" rel="external">http://haobinnan.blog.51cto.com/775253/750435</a><br><br><a href="http://ifalone.me/569.html" target="_blank" rel="external">http://ifalone.me/569.html</a><br><br><a href="http://blog.163.com/yuanzhf_2012/blog/static/2112011482012842515448/" target="_blank" rel="external">http://blog.163.com/yuanzhf_2012/blog/static/2112011482012842515448/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/07/xampp-install/" data-id="6ksafwd97x9h23gi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xampp/">xampp</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/08/js-han-shu-wen-jian-pai-xu-hua/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          js函数文件排序化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/07/vimrc-config/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">My vimrc config</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Yedeying<br>
+      <a href="https://github.com/ken8203/hexo-theme-alberta" target="_blank">Alberta</a> by <a href="http://jaychung.tw" target="_blank">jaychung</a>. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Thank <a href="http://subtlepatterns.com/" target="_blank">Subtlepatterns</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//imsky.github.io/holder/holder.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives | Yedeying&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Yedeying's blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yedeying's blog">
+<meta property="og:url" content="http://yedeying999.github.io/archives/page/2/">
+<meta property="og:site_name" content="Yedeying's blog">
+<meta property="og:description" content="Yedeying's blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yedeying's blog">
+<meta name="twitter:description" content="Yedeying's blog">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Yedeying&#39;s blog" type="application/atom+xml">
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="overlay"></div>
+  <div id="header-outer" class="outer">
+    <div id="profile_img">
+      <img id="circle_img" src="holder.js/150x150" />
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yedeying&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-menu">
+      <nav id="main-nav">
+        <ul>
+        
+          <li><a href="/"><i class="fa fa-home icon-setting"></i></a></li>
+        
+          <li><a href="/archives"><i class="fa fa-archive icon-setting"></i></a></li>
+        
+          <li><a href="/about"><i class="fa fa-user icon-setting"></i></a></li>
+        
+        
+          <li><a href="/atom.xml"><i class="fa fa-rss %> icon-setting"></i></a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-csv2json-wen-jian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/11/csv2json-wen-jian/" class="article-date">
+  <time datetime="2014-04-11T02:01:44.000Z" itemprop="datePublished">4月 11 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/11/csv2json-wen-jian/">csv转json文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天因为需要帮一个同事的新闻内容录入为html, 每次手改不方便，所以就弄了个csv(excel)转json的c++程序，然后再利用ejs把它渲染成网页，打开渲染好的网页再保存(不能保存源文件，不然还是空的)，就可以把内容弄成一个html了，此作mark，以下为程序</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// convert.cpp</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">int</span> main() {</div><div class="line">    freopen(<span class="string">"in.csv"</span>, <span class="string">"r"</span>, stdin);</div><div class="line">    freopen(<span class="string">"json.js"</span>, <span class="string">"w"</span>, stdout);</div><div class="line">    <span class="built_in">string</span> str, s[<span class="number">50</span>];</div><div class="line">    <span class="keyword">int</span> g = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> status = <span class="number">0</span>;</div><div class="line">    <span class="keyword">char</span> ch;</div><div class="line">    str = <span class="string">""</span>;</div><div class="line">    <span class="keyword">while</span>((ch = <span class="built_in">cin</span>.get()) != EOF) {</div><div class="line">        str += ch;</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) {</div><div class="line">        <span class="keyword">if</span>(status == <span class="number">0</span>) {</div><div class="line">            <span class="keyword">if</span>(str[i] == <span class="string">'\"'</span>) {</div><div class="line">                status = <span class="number">1</span>;</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                s[g] += str[i];</div><div class="line">                status = <span class="number">2</span>;</div><div class="line">            }</div><div class="line">        } <span class="keyword">else</span> <span class="keyword">if</span>(status == <span class="number">1</span>) {</div><div class="line">            <span class="keyword">if</span>(str[i] == <span class="string">'\"'</span>) {</div><div class="line">                <span class="keyword">if</span>(i + <span class="number">1</span> &gt;= str.size()) {</div><div class="line">                    g++;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                } <span class="keyword">else</span> <span class="keyword">if</span>(str[i + <span class="number">1</span>] == <span class="string">'\"'</span>) {</div><div class="line">                    s[g] += <span class="string">'\"'</span>;</div><div class="line">                    ++i;</div><div class="line">                } <span class="keyword">else</span> <span class="keyword">if</span>(str[i + <span class="number">1</span>] == <span class="string">','</span>) {</div><div class="line">                    status = <span class="number">0</span>;</div><div class="line">                    ++g;</div><div class="line">                    ++i;</div><div class="line">                } <span class="keyword">else</span> <span class="keyword">if</span>(str[i + <span class="number">1</span>] == <span class="string">'\n'</span>) {</div><div class="line">                    status = <span class="number">0</span>;</div><div class="line">                    ++g;</div><div class="line">                    ++i;</div><div class="line">                }</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                s[g] += str[i];</div><div class="line">            }</div><div class="line">        } <span class="keyword">else</span> <span class="keyword">if</span>(status == <span class="number">2</span>) {</div><div class="line">            <span class="keyword">if</span>(str[i] == <span class="string">','</span>) {</div><div class="line">                ++g;</div><div class="line">            } <span class="keyword">else</span> <span class="keyword">if</span>(str[i] == <span class="string">'\n'</span>) {</div><div class="line">                ++g;</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                s[g] += str[i];</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keyword">int</span> x = <span class="number">0</span>;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"var data = ["</span>);</div><div class="line">    <span class="built_in">string</span> name[] = {<span class="string">"title"</span>, <span class="string">"detail"</span>, <span class="string">"img"</span>, <span class="string">"url"</span>};</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; g; i++) {</div><div class="line">        <span class="keyword">if</span>(x == <span class="number">0</span>) {</div><div class="line">            <span class="keyword">if</span>(i == <span class="number">0</span>) {</div><div class="line">                <span class="built_in">puts</span>(<span class="string">"\t{"</span>);</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                <span class="built_in">puts</span>(<span class="string">"\t},"</span>);</div><div class="line">                <span class="built_in">puts</span>(<span class="string">"\t{"</span>);</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"\t\t"</span> &lt;&lt; name[x] &lt;&lt; <span class="string">": \""</span> &lt;&lt; s[i] &lt;&lt; <span class="string">"\""</span> &lt;&lt; (x == <span class="number">3</span> ? <span class="string">""</span> : <span class="string">","</span>) &lt;&lt; endl;</div><div class="line">        x = (x + <span class="number">1</span>) % <span class="number">4</span>;</div><div class="line">    }</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"\t}"</span>);</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"]"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/11/csv2json-wen-jian/" data-id="hvp8tkva3aiby5st" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/csv/">csv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/">json</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-css-helper-class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/09/css-helper-class/" class="article-date">
+  <time datetime="2014-04-09T06:08:01.000Z" itemprop="datePublished">4月 9 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/css/">css</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/09/css-helper-class/">CSS helper class</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应该习惯的css helper class</p>
+<table class="width-100" style="height: 520px; width: 672px;"><br>  <style><br>    .width-100 {<br>      border-collapse: collapse;<br>    }<br>    .width-100 td {<br>      border: 1px solid #aaa;<br>    }<br>  </style><br>  <tbody><br>    <tr><br>      <td class="nowrap"><br>        <code>.text-centered</code></td><br>      <td class="width-100">text-align: center;</td><br>    </tr><br>    <tr><br>      <td><code>.text-right</code></td><br>      <td>text-align: right;</td><br>    </tr><br>    <tr><br>      <td><code>.small</code></td><br>      <td>small font size from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.last</code></td><br>      <td>margin-right: 0;</td><br>    </tr><br>    <tr><br>      <td><code>.pause</code></td><br>      <td>margin-bottom: baseline/2;</td><br>    </tr><br>    <tr><br>      <td><code>.end</code></td><br>      <td>margin-bottom: 0;</td><br>    </tr><br>    <tr><br>      <td><code>.normal</code></td><br>      <td>font-weight: normal;</td><br>    </tr><br>    <tr><br>      <td><code>.bold</code></td><br>      <td>font-weight: bold;</td><br>    </tr><br>    <tr><br>      <td><code>.italic</code></td><br>      <td>font-style: italic;</td><br>    </tr><br>    <tr><br>      <td><code>.group</code></td><br>      <td>clearfix layer</td><br>    </tr><br>    <tr><br>      <td><code>.right</code></td><br>      <td>float: right;</td><br>    </tr><br>    <tr><br>      <td><code>.left</code></td><br>      <td>float: left;</td><br>    </tr><br>    <tr><br>      <td><code>.nowrap</code></td><br>      <td>white-space: nowrap;</td><br>    </tr><br>    <tr><br>      <td><code>.req</code>&nbsp;<br>        <code>.required</code></td><br>      <td>font-weight: normal; + red color from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.success</code></td><br>      <td>green color from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.error</code></td><br>      <td>red color from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.color-gray</code></td><br>      <td>color: #777;</td><br>    </tr><br>    <tr><br>      <td class="nowrap"><br>        <code>.color-gray-light</code></td><br>      <td>color: #999;</td><br>    </tr><br>    <tr><br>      <td><code>.color-black</code></td><br>      <td>color: #000;</td><br>    </tr><br>    <tr><br>      <td><code>.color-red</code></td><br>      <td>red color from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.color-green</code></td><br>      <td>green color from variables.less</td><br>    </tr><br>    <tr><br>      <td><code>.no-wrap-line</code></td><br>      <td>overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block</td><br>    </tr><br>  </tbody><br></table>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/09/css-helper-class/" data-id="ftpa211pyztuq584" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js-han-shu-wen-jian-pai-xu-hua" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/08/js-han-shu-wen-jian-pai-xu-hua/" class="article-date">
+  <time datetime="2014-04-08T04:19:22.000Z" itemprop="datePublished">4月 8 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/08/js-han-shu-wen-jian-pai-xu-hua/">js函数文件排序化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>因为本人的某些小强迫症，写了一个格式化并根据js函数名排序的c++程序，此作mark</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;map&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;string&gt;</span></div><div class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">int</span> main() {</div><div class="line">    freopen(<span class="string">"in.js"</span>, <span class="string">"r"</span>, stdin);</div><div class="line">    freopen(<span class="string">"out.js"</span>, <span class="string">"w"</span>, stdout);</div><div class="line">    <span class="built_in">string</span> str, name, content;</div><div class="line">    <span class="stl_container"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;</span> mp;</div><div class="line">    <span class="keyword">char</span> ch;</div><div class="line">    <span class="keyword">while</span>((ch = getchar()) != EOF) {</div><div class="line">        str += ch;</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.size(); i++) {</div><div class="line">        <span class="keyword">if</span>(str.size() - i &gt;= <span class="number">8</span> && str.substr(i, <span class="number">8</span>) == <span class="string">"function"</span>) {</div><div class="line">            <span class="keyword">int</span> l = i + <span class="number">9</span>;</div><div class="line">            <span class="keyword">int</span> r = i + <span class="number">9</span>;</div><div class="line">            <span class="keyword">while</span>(str[r] != <span class="string">'{'</span>) {</div><div class="line">                r++;</div><div class="line">            }</div><div class="line">            name = str.substr(l, r - l);</div><div class="line">            l = r;</div><div class="line">            r++;</div><div class="line">            <span class="keyword">int</span> g = <span class="number">1</span>;</div><div class="line">            <span class="keyword">while</span>(<span class="number">1</span>) {</div><div class="line">                ch = str[r++];</div><div class="line">                <span class="keyword">if</span>(ch == <span class="string">'{'</span>) {</div><div class="line">                    g++;</div><div class="line">                }</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">'}'</span>) {</div><div class="line">                    g--;</div><div class="line">                }</div><div class="line">                <span class="keyword">if</span>(g == <span class="number">0</span>) {</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                }</div><div class="line">            }</div><div class="line">            content = str.substr(l, r - l);</div><div class="line">            i = r;</div><div class="line">            mp[name] = content;</div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span> (<span class="stl_container"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;</span>::iterator i = mp.begin(); i != mp.end(); ++i) {</div><div class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"function "</span> &lt;&lt; i -&gt; first  &lt;&lt; i -&gt; second &lt;&lt; endl &lt;&lt; endl;</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/08/js-han-shu-wen-jian-pai-xu-hua/" data-id="j9fuqg8vyo9booaf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tools/">tools</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-xampp-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/07/xampp-install/" class="article-date">
+  <time datetime="2014-04-07T14:56:09.000Z" itemprop="datePublished">4月 7 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/07/xampp-install/">Linux下xampp的install</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>the way of restart:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> /opt/lampp/lampp restart</div></pre></td></tr></table></figure>
+
+<p>config root:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/opt/lampp/etc/httpd.conf</div><div class="line">/opt/lampp/etc/httpd-xampp.conf</div><div class="line"><span class="comment"># in each file we should change the deny config to allow</span></div></pre></td></tr></table></figure>
+
+<p>and one more thing is to change the rights of htdocs directory, with the order below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> chmod a+w -R /opt/lampp/htdocs  <span class="comment">#change the rights of htdocs directory</span></div><div class="line"><span class="built_in">sudo</span> ln -sf /opt/lampp/htdocs/ ~/Public/  <span class="comment">#create a link of htdocs for convience</span></div></pre></td></tr></table></figure>
+
+<p>reference pages:<br><br><a href="http://haobinnan.blog.51cto.com/775253/750435" target="_blank" rel="external">http://haobinnan.blog.51cto.com/775253/750435</a><br><br><a href="http://ifalone.me/569.html" target="_blank" rel="external">http://ifalone.me/569.html</a><br><br><a href="http://blog.163.com/yuanzhf_2012/blog/static/2112011482012842515448/" target="_blank" rel="external">http://blog.163.com/yuanzhf_2012/blog/static/2112011482012842515448/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/07/xampp-install/" data-id="6ksafwd97x9h23gi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xampp/">xampp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vimrc-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/07/vimrc-config/" class="article-date">
+  <time datetime="2014-04-07T12:06:02.000Z" itemprop="datePublished">4月 7 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/07/vimrc-config/">My vimrc config</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div></pre></td><td class="code"><pre><div class="line">runtime! debian.vim</div><div class="line"><span class="string">"设置编码</span></div><div class="line">set encoding=utf-8</div><div class="line">set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936</div><div class="line">set fileencodings=utf-8,ucs-bom,chinese</div><div class="line"></div><div class="line">"语言设置</div><div class="line">set langmenu=zh_CN.<span class="constant">UTF</span>-<span class="number">8</span></div><div class="line"></div><div class="line"><span class="string">"设置语法高亮</span></div><div class="line">syntax enable</div><div class="line">syntax on</div><div class="line"></div><div class="line">"设置配色方案</div><div class="line">colorscheme torte</div><div class="line"></div><div class="line"><span class="string">"可以在buffer的任何地方使用鼠标</span></div><div class="line">set mouse=a</div><div class="line">set selection=exclusive</div><div class="line">set selectmode=mouse,key</div><div class="line"></div><div class="line">"高亮显示匹配的括号</div><div class="line">set showmatch</div><div class="line"></div><div class="line"><span class="string">"去掉vi一致性</span></div><div class="line">set nocompatible</div><div class="line"></div><div class="line">"设置缩进</div><div class="line">set tabstop=<span class="number">4</span></div><div class="line">set softtabstop=<span class="number">4</span></div><div class="line">set shiftwidth=<span class="number">4</span></div><div class="line">set autoindent</div><div class="line">set cindent</div><div class="line"><span class="keyword">if</span> &term==<span class="string">"xterm"</span></div><div class="line">    set t_Co=<span class="number">8</span></div><div class="line">    set t_Sb=^[[<span class="number">4</span>%dm</div><div class="line">    set t_Sf=^[[<span class="number">3</span>%dm</div><div class="line">endif</div><div class="line"></div><div class="line"><span class="string">"打开文件类型自动检测功能</span></div><div class="line">filetype on</div><div class="line"></div><div class="line">"设置taglist</div><div class="line">let <span class="constant">Tlist_Show_One_File</span>=<span class="number">0</span>   <span class="string">"显示多个文件的tags</span></div><div class="line">let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏</div><div class="line">let <span class="constant">Tlist_Exit_OnlyWindow</span>=<span class="number">1</span> <span class="string">"在taglist是最后一个窗口时退出vim</span></div><div class="line">let Tlist_Use_SingleClick=1 "单击时跳转</div><div class="line">let <span class="constant">Tlist_GainFocus_On_ToggleOpen</span>=<span class="number">1</span> <span class="string">"打开taglist时获得输入焦点</span></div><div class="line">let Tlist_Process_File_Always=1 "不管taglist窗口是否打开，始终解析文件中的tag</div><div class="line"></div><div class="line"><span class="string">"设置WinManager插件</span></div><div class="line">let g:winManagerWindowLayout='FileExplorer|TagList'</div><div class="line">nmap wm :WMToggle&lt;cr&gt;</div><div class="line">map &lt;silent&gt; &lt;F9&gt; :WMToggle&lt;cr&gt; "将<span class="constant">F9</span>绑定至<span class="constant">WinManager</span>,即打开<span class="constant">WimManager</span></div><div class="line"></div><div class="line"><span class="string">"设置CSCOPE</span></div><div class="line">set cscopequickfix=s-,c-,d-,i-,t-,e- "设定是否使用quickfix窗口显示cscope结果</div><div class="line"><span class="input"><span class="prompt"></span></span></div><div class="line">"设置Grep插件</div><div class="line">nnoremap &lt;silent&gt; &lt;<span class="constant">F3</span>&gt; <span class="symbol">:Grep&lt;CR&gt;</span></div><div class="line"><span class="input"><span class="prompt"></span></span></div><div class="line">"设置一键编译</div><div class="line">map &lt;F6&gt; <span class="symbol">:make&lt;CR&gt;</span></div><div class="line"></div><div class="line"><span class="string">"设置自动补全</span></div><div class="line">filetype plugin indent on   "打开文件类型检测</div><div class="line">set completeopt=longest,menu <span class="string">"关掉智能补全时的预览窗口</span></div><div class="line"></div><div class="line">"启动vim时如果存在tags则自动加载</div><div class="line"><span class="keyword">if</span> exists(<span class="string">"tags"</span>)</div><div class="line">    set tags=./tags</div><div class="line"><span class="input"><span class="prompt">endif</span></span></div><div class="line"></div><div class="line">"设置按F12就更新tags的方法</div><div class="line">map &lt;F12&gt; <span class="symbol">:call</span> <span class="constant">Do_CsTag</span>()&lt;<span class="constant">CR</span>&gt;</div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;s <span class="symbol">:cs</span> find s &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;g <span class="symbol">:cs</span> find g &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;</div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;c <span class="symbol">:cs</span> find c &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;t <span class="symbol">:cs</span> find t &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;e <span class="symbol">:cs</span> find e &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;f <span class="symbol">:cs</span> find f &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cfile&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;i <span class="symbol">:cs</span> find i ^&lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cfile&gt;"</span>)&lt;<span class="constant">CR</span>&gt;<span class="variable">$&lt;</span><span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">nmap &lt;<span class="constant">C</span>-@&gt;d <span class="symbol">:cs</span> find d &lt;<span class="constant">C</span>-<span class="constant">R</span>&gt;=expand(<span class="string">"&lt;cword&gt;"</span>)&lt;<span class="constant">CR</span>&gt;&lt;<span class="constant">CR</span>&gt;<span class="symbol">:copen&lt;CR&gt;</span></div><div class="line">function <span class="constant">Do_CsTag</span>()</div><div class="line">        let dir = getcwd()</div><div class="line">        <span class="keyword">if</span> filereadable(<span class="string">"tags"</span>)</div><div class="line">            <span class="keyword">if</span>(<span class="symbol">g:</span>iswindows==<span class="number">1</span>)</div><div class="line">                let tagsdeleted=delete(dir.<span class="string">"\\"</span>.<span class="string">"tags"</span>)</div><div class="line">            <span class="keyword">else</span></div><div class="line">                let tagsdeleted=delete(<span class="string">"./"</span>.<span class="string">"tags"</span>)</div><div class="line">            endif</div><div class="line">            <span class="keyword">if</span>(tagsdeleted!=<span class="number">0</span>)</div><div class="line">                echohl <span class="constant">WarningMsg</span> | echo <span class="string">"Fail to do tags! I cannot delete the tags"</span> | echohl <span class="constant">None</span></div><div class="line">                <span class="keyword">return</span></div><div class="line">            endif</div><div class="line">        endif</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> has(<span class="string">"cscope"</span>)</div><div class="line">            silent! execute <span class="string">"cs kill -1"</span></div><div class="line">        endif</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> filereadable(<span class="string">"cscope.files"</span>)</div><div class="line">            <span class="keyword">if</span>(<span class="symbol">g:</span>iswindows==<span class="number">1</span>)</div><div class="line">                let csfilesdeleted=delete(dir.<span class="string">"\\"</span>.<span class="string">"cscope.files"</span>)</div><div class="line">            <span class="keyword">else</span></div><div class="line">                let csfilesdeleted=delete(<span class="string">"./"</span>.<span class="string">"cscope.files"</span>)</div><div class="line">            endif</div><div class="line">            <span class="keyword">if</span>(csfilesdeleted!=<span class="number">0</span>)</div><div class="line">                echohl <span class="constant">WarningMsg</span> | echo <span class="string">"Fail to do cscope! I cannot delete the cscope.files"</span> | echohl <span class="constant">None</span></div><div class="line">                <span class="keyword">return</span></div><div class="line">            endif</div><div class="line">        endif</div><div class="line">                                            </div><div class="line">        <span class="keyword">if</span> filereadable(<span class="string">"cscope.out"</span>)</div><div class="line">            <span class="keyword">if</span>(<span class="symbol">g:</span>iswindows==<span class="number">1</span>)</div><div class="line">                let csoutdeleted=delete(dir.<span class="string">"\\"</span>.<span class="string">"cscope.out"</span>)</div><div class="line">            <span class="keyword">else</span></div><div class="line">                let csoutdeleted=delete(<span class="string">"./"</span>.<span class="string">"cscope.out"</span>)</div><div class="line">            endif</div><div class="line">            <span class="keyword">if</span>(csoutdeleted!=<span class="number">0</span>)</div><div class="line">                echohl <span class="constant">WarningMsg</span> | echo <span class="string">"Fail to do cscope! I cannot delete the cscope.out"</span> | echohl <span class="constant">None</span></div><div class="line">                <span class="keyword">return</span></div><div class="line">            endif</div><div class="line">        endif</div><div class="line">                                            </div><div class="line">        <span class="keyword">if</span>(executable(<span class="string">'ctags'</span>))</div><div class="line">            <span class="string">"silent! execute "</span>!ctags -<span class="constant">R</span> --c-types=+p --fields=+<span class="constant">S</span> *<span class="string">"</span></div><div class="line">            silent! execute "!ctags -<span class="constant">R</span> --c++-kinds=+p --fields=+iaS --extra=+q .<span class="string">"</span></div><div class="line">        endif</div><div class="line">            </div><div class="line">        if(executable('cscope') && has("cscope<span class="string">") )</span></div><div class="line">            if(g:iswindows!=1)</div><div class="line">                silent! execute "!find . -name <span class="string">'*.h'</span> -o -name <span class="string">'*.c'</span> -o -name <span class="string">'*.cpp'</span> -o -name <span class="string">'*.java'</span> -o -name <span class="string">'*.cs'</span> &gt; cscope.files<span class="string">"</span></div><div class="line">            else</div><div class="line">                silent! execute "!dir /s/b *.c,*.cpp,*.h,*.java,*.cs <span class="input">&gt;&gt; cscope.files<span class="string">"</span></span></div><div class="line">            endif</div><div class="line">            silent! execute "!cscope -b<span class="string">"</span></div><div class="line">            execute "normal <span class="symbol">:<span class="string">"</span></span></div><div class="line">                                                                    </div><div class="line">            if filereadable("cscope.out<span class="string">")</span></div><div class="line">                execute "cs add cscope.out<span class="string">"</span></div><div class="line">            endif</div><div class="line">        endif</div><div class="line">endfunction</div><div class="line"></div><div class="line">"设置默认shell</div><div class="line">set shell=bash</div><div class="line"></div><div class="line"><span class="string">"设置VIM记录的历史数</span></div><div class="line">set history=400</div><div class="line"></div><div class="line">"设置当文件被外部改变的时侯自动读入文件</div><div class="line"><span class="keyword">if</span> exists(<span class="string">"&autoread"</span>)</div><div class="line">    set autoread</div><div class="line">endif</div><div class="line"></div><div class="line"><span class="string">"设置ambiwidth</span></div><div class="line">set ambiwidth=double</div><div class="line"></div><div class="line">"设置文件类型</div><div class="line">set ffs=unix,dos,mac</div><div class="line"></div><div class="line"><span class="string">"设置增量搜索模式</span></div><div class="line">set incsearch</div><div class="line"></div><div class="line">"设置静音模式</div><div class="line">set noerrorbells</div><div class="line">set novisualbell</div><div class="line">set t_vb=</div><div class="line"></div><div class="line"><span class="string">"不要备份文件</span></div><div class="line">set nobackup</div><div class="line">set nowb</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/07/vimrc-config/" data-id="b8hgp04zi9qb6psb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/editor/">editor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vim/">vim</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ubuntu-za-ji" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/07/ubuntu-za-ji/" class="article-date">
+  <time datetime="2014-04-06T21:13:03.000Z" itemprop="datePublished">4月 7 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/07/ubuntu-za-ji/">ubuntu杂记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="安装ssh:">安装ssh:</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> apt-get install openssh-server</div><div class="line"><span class="built_in">sudo</span> /etc/init.d/ssh start</div></pre></td></tr></table></figure>
+
+<p>将主机中vmware8的网络改为自动获取ip, 就可以ping通了 </p>
+<h4 id="安装sublime-text:">安装sublime-text:</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> add-apt-repository ppa:webupd8team/sublime-text-<span class="number">3</span></div><div class="line"><span class="built_in">sudo</span> apt-get update</div><div class="line"><span class="built_in">sudo</span> apt-get install sublime-text-installer</div></pre></td></tr></table></figure>
+
+<p>Lampp config: </p>
+<p><a href="https://www.apachefriends.org/zh_cn/index.html" target="_blank" rel="external">https://www.apachefriends.org/zh_cn/index.html</a></p>
+<h4 id="安装五笔输入法:">安装五笔输入法:</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> apt-get install ibus ibus-table ibus-table-wubi</div></pre></td></tr></table></figure>
+
+<ol>
+<li>安装三个包：ibus,ibus-table ibus-table-wubi</li>
+<li>打开System setting面板, 点击language support,在Keyboard input method system右边的下拉框中选中ibus,退出</li>
+<li>注销, 再次进入系统, 在右上角的就会多一个ibus的东东, 点开下拉, 选择Preference, 打开ibus preference面板</li>
+<li>选择Input Method选项卡, 选择想要的输入法, 然后点击Add按扭.OK！除了五笔外, ibus还有拼音, 以及一些其它输入法.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/07/ubuntu-za-ji/" data-id="sbqjiey91vpmde0k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ubuntu/">ubuntu</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-zi-she-chrome-mo-ren-gun-dong-tiao" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/03/zi-she-chrome-mo-ren-gun-dong-tiao/" class="article-date">
+  <time datetime="2014-04-03T13:19:07.000Z" itemprop="datePublished">4月 3 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/css/">css</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/03/zi-she-chrome-mo-ren-gun-dong-tiao/">自设chrome默认滚动条</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天无聊，想着chrome这种全面使用html的浏览器，可不可以让我自行改变它的默认CSS呢，结果去查查，有，很好<br>win7/8目录为 <code>C:\Users\[你的用户名]\AppData\Local\Google\Chrome\User Data\Default\User StyleSheets</code><br>在这个目录下找到<code>Custom.css</code>打开修改即可<br>立马套上了之前做的一个滚动条样式，代码如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="pseudo">::-webkit-scrollbar</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">8px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">8px</span></span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"><span class="pseudo">::-webkit-scrollbar-track</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">10px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.5</span>)</span></span>;</div><div class="line">  <span class="rule"><span class="attribute">-webkit-box-shadow</span>:<span class="value"> inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.5</span>)</span></span>;</div><div class="line"><span class="rule">}</span></div><div class="line"><span class="pseudo">::-webkit-scrollbar-thumb</span> <span class="rules">{</span></div><div class="line">  <span class="rule"><span class="attribute">border-radius</span>:<span class="value"> <span class="number">10px</span></span></span>;</div><div class="line">  <span class="rule"><span class="attribute">-webkit-box-shadow</span>:<span class="value"> inset <span class="number">0</span> <span class="number">0</span> <span class="number">6px</span> <span class="function">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.8</span>)</span></span>; </div><div class="line"><span class="rule">}</span></div></pre></td></tr></table></figure>
+
+<p>保存即可，效果如下：</p>
+<p><img src="/images/201404031.png" alt="Alt 演示效果"> </p>
+<p>其它的滚动条效果设置这都有，可以参考下：<a href="http://css-tricks.com/custom-scrollbars-in-webkit/" target="_blank" rel="external">http://css-tricks.com/custom-scrollbars-in-webkit/</a> </p>
+<p>更多的，你可以试试在代码里加个<code>body{display:none}</code>，见识下这个文件的好玩之处哦^.^</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/03/zi-she-chrome-mo-ren-gun-dong-tiao/" data-id="kvnxtt4izz2z1140" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-zheng-ze-biao-da-shi-xue-xi" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/31/zheng-ze-biao-da-shi-xue-xi/" class="article-date">
+  <time datetime="2014-03-31T06:43:07.000Z" itemprop="datePublished">3月 31 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/31/zheng-ze-biao-da-shi-xue-xi/">正则表达式学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="符号">符号</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">/ 用于转义</div><div class="line">^ 非集合中为行头，集合中为非</div><div class="line"><span class="formula">$ 行末，与^对应</span></div><div class="line">* 闭包<span class="special">[</span>0-n<span class="special">]</span></div><div class="line">+ 不包括0的闭包<span class="special">[</span>1-n<span class="special">]</span></div><div class="line">? 匹配0或1次<span class="special">[</span>0-1<span class="special">]</span>,?接其它量词(*,+,?,<span class="special">{</span><span class="special">}</span>)之后将变成非贪婪模式(默认贪婪)</div><div class="line">. 匹配非换行符的所有字符</div><div class="line">() 捕获括号，结果以<span class="special">[</span>1<span class="special">]</span>,<span class="special">[</span>2<span class="special">]</span>,...,<span class="special">[</span>n<span class="special">]</span>输出</div><div class="line">(?:x) 非捕获括号，与()相反</div><div class="line">x(?=y) 匹配x仅当x后有y,向后查询</div><div class="line">x(?!y) 匹配x仅当x后无y,反向向前查询</div><div class="line">x|y 或运算符</div><div class="line"><span class="special">{</span>n<span class="special">}</span> 刚好匹配n个</div><div class="line"><span class="special">{</span>n,m<span class="special">}</span> 匹配n-m个</div><div class="line"><span class="special">[</span>abc<span class="special">]</span> 集合,匹配集合中的任一个</div><div class="line"><span class="special">[</span>a-c<span class="special">]</span> 集合，连续写法</div><div class="line"><span class="special">[</span>^abc<span class="special">]</span> 匹配不在集合的所有</div><div class="line"><span class="special">[</span><span class="command">\b</span><span class="special">]</span> 表示转义字符，而非元字符</div><div class="line"><span class="command">\b</span> 匹配单词边界</div><div class="line"><span class="command">\B</span> 匹配非单词边界</div><div class="line"><span class="command">\d</span> <span class="special">[</span>0-9<span class="special">]</span></div><div class="line"><span class="command">\D</span> <span class="special">[</span>^0-9<span class="special">]</span></div><div class="line"><span class="command">\f</span> 换页符</div><div class="line"><span class="command">\n</span> 换行符</div><div class="line"><span class="command">\r</span> 回车符</div><div class="line"><span class="command">\s</span> 空白符</div><div class="line"><span class="command">\S</span> 非空白符</div><div class="line"><span class="command">\t</span> tab</div><div class="line"><span class="command">\v</span> vertical tab</div><div class="line"><span class="command">\w</span> <span class="special">[</span>A-Za-z0-9_<span class="special">]</span></div><div class="line"><span class="command">\W</span> <span class="special">[</span>^A-Za-z0-9_<span class="special">]</span></div><div class="line">\0 '\0'</div><div class="line"><span class="command">\xhh</span> 2位16进制转义</div><div class="line"><span class="command">\uhhhh</span> 4位16进制转义</div></pre></td></tr></table></figure>
+
+<h4 id="用法">用法</h4>
+<p>string:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　str.replace(reg, s); <span class="comment">//将str中匹配reg的内容替换为s,参数g以搜全局</span></div><div class="line">　str.match(reg); <span class="comment">//返回满足匹配的值</span></div><div class="line">　str.search(reg); <span class="comment">//返回满足匹配的索引</span></div><div class="line">　str.split(reg); <span class="comment">//以匹配内容为分割，返回数组</span></div></pre></td></tr></table></figure>
+
+<p>RegExp:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">reg.exec(str); <span class="comment">//类似于str.match</span></div><div class="line">reg.test(str); <span class="comment">//测试对否匹配str</span></div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/03/31/zheng-ze-biao-da-shi-xue-xi/" data-id="mrje0y4pvvbuig9g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/regex/">regex</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jian-ting-div-nei-rong-gai-bian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/28/jian-ting-div-nei-rong-gai-bian/" class="article-date">
+  <time datetime="2014-03-28T07:25:56.000Z" itemprop="datePublished">3月 28 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/28/jian-ting-div-nei-rong-gai-bian/">监听div内容改变</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>做前端突击队，外星人那道是自己手动模拟那个时间的变化的，但正确思路应该是监听div内容的变化然后同步到输入框中，遂今天找了一下<br>结果如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'div'</span>).on(<span class="string">'DOMNodeInserted'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(e)</span> </span>{</div><div class="line">  <span class="comment">// TO DO</span></div><div class="line">});</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/03/28/jian-ting-div-nei-rong-gai-bian/" data-id="0fmz1i40oqwbs4rq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js-number-formatter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/26/js-number-formatter/" class="article-date">
+  <time datetime="2014-03-26T02:15:32.000Z" itemprop="datePublished">3月 26 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/26/js-number-formatter/">javascript小数格式化函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接上代码，参数number为待格式化整数或小数，fix是要保留有效位数，过亿以亿结尾，过万以万结尾，toFixed函数记得，免得再查</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">shorten_number</span> <span class="params">(number, fix)</span> </span>{</div><div class="line">  <span class="keyword">var</span> counter = <span class="string">''</span>;</div><div class="line">  <span class="keyword">if</span> (number &gt;= <span class="number">100000000</span>) {</div><div class="line">    number /= <span class="number">100000000</span>;</div><div class="line">    counter = <span class="string">'亿'</span>;</div><div class="line">  } <span class="keyword">else</span> <span class="keyword">if</span> (number &gt;= <span class="number">10000</span>) {</div><div class="line">    number /= <span class="number">10000</span>;</div><div class="line">    counter = <span class="string">'万'</span>;</div><div class="line">  }</div><div class="line">  <span class="keyword">var</span> str = number.toFixed(fix);</div><div class="line">  <span class="keyword">while</span>(str.charAt(str.length - <span class="number">1</span>) == <span class="string">'0'</span>)</div><div class="line">    str = str.substring(<span class="number">0</span>, str.length - <span class="number">1</span>);</div><div class="line">  <span class="keyword">if</span>(str.charAt(str.length - <span class="number">1</span>) == <span class="string">'.'</span>)</div><div class="line">    str = str.substring(<span class="number">0</span>, str.length - <span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> str + counter;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/03/26/js-number-formatter/" data-id="jgwavwp8epr7a1ox" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Yedeying<br>
+      <a href="https://github.com/ken8203/hexo-theme-alberta" target="_blank">Alberta</a> by <a href="http://jaychung.tw" target="_blank">jaychung</a>. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Thank <a href="http://subtlepatterns.com/" target="_blank">Subtlepatterns</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//imsky.github.io/holder/holder.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

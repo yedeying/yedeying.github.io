@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>css position 学习 | Yedeying&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天重新看了下绝对定位，总算明白那个绝对居中的原理了。绝对定位是对它关系最近的一个有定位属性的父元素进行定位，参数先看left top，再看right bottom。绝对居中布局是指(对其关系最近的一个有定位属性的父元素进行居中)
+12345678.div {    position: absolute;    margin: auto;    left: 0;    right: 0;    t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css position 学习">
+<meta property="og:url" content="http://yedeying999.github.io/2014/03/26/position-studying/">
+<meta property="og:site_name" content="Yedeying's blog">
+<meta property="og:description" content="今天重新看了下绝对定位，总算明白那个绝对居中的原理了。绝对定位是对它关系最近的一个有定位属性的父元素进行定位，参数先看left top，再看right bottom。绝对居中布局是指(对其关系最近的一个有定位属性的父元素进行居中)
+12345678.div {    position: absolute;    margin: auto;    left: 0;    right: 0;    t">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css position 学习">
+<meta name="twitter:description" content="今天重新看了下绝对定位，总算明白那个绝对居中的原理了。绝对定位是对它关系最近的一个有定位属性的父元素进行定位，参数先看left top，再看right bottom。绝对居中布局是指(对其关系最近的一个有定位属性的父元素进行居中)
+12345678.div {    position: absolute;    margin: auto;    left: 0;    right: 0;    t">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Yedeying&#39;s blog" type="application/atom+xml">
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="overlay"></div>
+  <div id="header-outer" class="outer">
+    <div id="profile_img">
+      <img id="circle_img" src="holder.js/150x150" />
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yedeying&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-menu">
+      <nav id="main-nav">
+        <ul>
+        
+          <li><a href="/"><i class="fa fa-home icon-setting"></i></a></li>
+        
+          <li><a href="/archives"><i class="fa fa-archive icon-setting"></i></a></li>
+        
+          <li><a href="/about"><i class="fa fa-user icon-setting"></i></a></li>
+        
+        
+          <li><a href="/atom.xml"><i class="fa fa-rss %> icon-setting"></i></a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-position-studying" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/26/position-studying/" class="article-date">
+  <time datetime="2014-03-25T16:03:14.000Z" itemprop="datePublished">3月 26 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/css/">css</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      css position 学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天重新看了下绝对定位，总算明白那个绝对居中的原理了。<br>绝对定位是对它关系最近的一个有定位属性的父元素进行定位，参数先看left top，再看right bottom。<br>绝对居中布局是指(对其关系最近的一个有定位属性的父元素进行居中)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class">.div</span> <span class="rules">{</span></div><div class="line">    <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</div><div class="line">    <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;</div><div class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">    <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>margin: auto起到的作用是将div相对其父元素延伸出左右上下相等的外补丁从而实现居中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="doctype">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="class">.outer</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">200px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> yellow</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">    <span class="class">.inner</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">bottom</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">100px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> blue</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">  <span class="tag">&lt;/<span class="title">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"outer"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>demo如下:</p>
+<div style="position: relative; width: 200px; height: 200px; background: yellow; text-align: center;">外<br><div style="top: 0; bottom: 0; left: 0; right: 0; margin: auto; position: absolute; width: 100px; height: 100px; background: #4791ff; text-align: center; vertical-align: middle;">里</div><br></div><br>同样地，我们可以活用这个规则，创建出指定宽度的分列布局，只需要将上例的四个方向属性由0改为一个规定的百分值，即可实现，下为我把一个div划为三列的写法：<br><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="doctype">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="title">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="class">.outer</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">position</span>:<span class="value"> relative</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">margin</span>:<span class="value"> auto</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">600px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> yellow</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">    <span class="class">.inner</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">33.33333333%</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">position</span>:<span class="value"> absolute</span></span>;</div><div class="line">      <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span> auto</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">    <span class="class">.a</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">66.66666667%</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> green</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">    <span class="class">.b</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> blue</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">    <span class="class">.c</span> <span class="rules">{</span></div><div class="line">      <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">66.66666667%</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">right</span>:<span class="value"> <span class="number">0</span></span></span>;</div><div class="line">      <span class="rule"><span class="attribute">background</span>:<span class="value"> red</span></span>;</div><div class="line">    <span class="rule">}</span></div><div class="line">  <span class="tag">&lt;/<span class="title">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"outer"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"inner a"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"inner b"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"inner c"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></div></pre></td></tr></table></figure><br><br>Demo:<br><div style="position: relative; height: 200px; width: 600px; background: yellow;"><br><div style="height: 200px; width: 33.33333333%; position: absolute; margin: 0 auto; left: 0; right: 66.66666667%; background: green; text-align: center;">左</div><br><div style="height: 200px; width: 33.33333333%; position: absolute; margin: 0 auto; left: 0; right: 0; background: blue; text-align: center;">中</div><br><div style="height: 200px; width: 33.33333333%; position: absolute; margin: 0 auto; left: 66.66666667%; right: 0; background: red; text-align: center;">右</div><br></div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/03/26/position-studying/" data-id="jsntjuqb5raghfcs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html/">html</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/26/css-suo-xie/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CSS缩写
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/23/fa-guang-shu-ru-kuang/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">发光输入框</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Yedeying<br>
+      <a href="https://github.com/ken8203/hexo-theme-alberta" target="_blank">Alberta</a> by <a href="http://jaychung.tw" target="_blank">jaychung</a>. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Thank <a href="http://subtlepatterns.com/" target="_blank">Subtlepatterns</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//imsky.github.io/holder/holder.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

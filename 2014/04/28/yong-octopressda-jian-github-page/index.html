@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Yedeying&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="layout: posttitle: “用octopress搭建github page”date: “2014-04-28 14:32:04 +0800”comments: truecategories:other
+tags:- blog
+尝试和失败了无数次，终于把博客搭好了，以下简述下我的搭建过程。
+引言
+
+Octopress是利用Jekyll博客引擎开发的一个博客系统，生成的静态页面能够很好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yedeying's blog">
+<meta property="og:url" content="http://yedeying999.github.io/2014/04/28/yong-octopressda-jian-github-page/">
+<meta property="og:site_name" content="Yedeying's blog">
+<meta property="og:description" content="layout: posttitle: “用octopress搭建github page”date: “2014-04-28 14:32:04 +0800”comments: truecategories:other
+tags:- blog
+尝试和失败了无数次，终于把博客搭好了，以下简述下我的搭建过程。
+引言
+
+Octopress是利用Jekyll博客引擎开发的一个博客系统，生成的静态页面能够很好">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yedeying's blog">
+<meta name="twitter:description" content="layout: posttitle: “用octopress搭建github page”date: “2014-04-28 14:32:04 +0800”comments: truecategories:other
+tags:- blog
+尝试和失败了无数次，终于把博客搭好了，以下简述下我的搭建过程。
+引言
+
+Octopress是利用Jekyll博客引擎开发的一个博客系统，生成的静态页面能够很好">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Yedeying&#39;s blog" type="application/atom+xml">
+  
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="overlay"></div>
+  <div id="header-outer" class="outer">
+    <div id="profile_img">
+      <img id="circle_img" src="holder.js/150x150" />
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yedeying&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-menu">
+      <nav id="main-nav">
+        <ul>
+        
+          <li><a href="/"><i class="fa fa-home icon-setting"></i></a></li>
+        
+          <li><a href="/archives"><i class="fa fa-archive icon-setting"></i></a></li>
+        
+          <li><a href="/about"><i class="fa fa-user icon-setting"></i></a></li>
+        
+        
+          <li><a href="/atom.xml"><i class="fa fa-rss %> icon-setting"></i></a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-yong-octopressda-jian-github-page" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/28/yong-octopressda-jian-github-page/" class="article-date">
+  <time datetime="2014-04-27T16:00:00.000Z" itemprop="datePublished">4月 28 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>layout: post<br>title: “用octopress搭建github page”<br>date: “2014-04-28 14:32:04 +0800”<br>comments: true<br>categories:other</p>
+<h2 id="tags:-_blog">tags:- blog</h2>
+<p>尝试和失败了无数次，终于把博客搭好了，以下简述下我的搭建过程。</p>
+<p>引言</p>
+<blockquote>
+<p><a href="http://octopress.org/" target="_blank" rel="external">Octopress</a>是利用<a href="http://jekyllrb.com/" target="_blank" rel="external">Jekyll</a>博客引擎开发的一个博客系统，生成的静态页面能够很好的在<a href="https://pages.github.com/" target="_blank" rel="external">github page</a>上展现。号称是hacker专属的一个博客系统(A blogging framework for hackers.)</p>
+</blockquote>
+<p>目录</p>
+<ol>
+<li>配置环境</li>
+<li>安装octopress</li>
+<li>配置github</li>
+<li>配置octopress</li>
+<li>开始部署</li>
+<li>完成</li>
+<li>一些小技巧</li>
+</ol>
+<h3 id="配置环境">配置环境</h3>
+<p>安装octopress需要ruby和git环境，Mac OS 10.9 上自带有ruby和git环境，故不作述。<br>(大家可以检查下自己的ruby gem和git是否有正确配置好)</p>
+<p>(以下命令请自觉用sudo来执行，不然可能有权限问题)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ruby --version</div><div class="line">git --version</div><div class="line">gem --version</div></pre></td></tr></table></figure>
+
+<p>安装rbenv</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div><div class="line"><span class="comment"># 用来编译安装 ruby</span></div><div class="line">git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div><div class="line"><span class="comment"># 用来管理 gemset, 可选, 因为有 bundler 也没什么必要</span></div><div class="line">git clone git://github.com/jamis/rbenv-gemset.git  ~/.rbenv/plugins/rbenv-gemset</div><div class="line"><span class="comment"># 通过 gem 命令安装完 gem 后无需手动输入 rbenv rehash 命令, 推荐</span></div><div class="line">git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash</div><div class="line"><span class="comment"># 通过 rbenv update 命令来更新 rbenv 以及所有插件, 推荐</span></div><div class="line">git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update</div></pre></td></tr></table></figure>
+
+<p>然后把下面的代码放到<code>~/.bash_profile</code>里</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> PATH=<span class="string">"<span class="variable">$HOME</span>/.rbenv/bin:<span class="variable">$PATH</span>"</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(rbenv init -)</span>"</span></div></pre></td></tr></table></figure>
+
+<h3 id="安装octopress">安装octopress</h3>
+<p>通过以下命令安装</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone git://github.com/imathis/octopress.git octopress</div><div class="line"><span class="built_in">cd</span> octopress</div></pre></td></tr></table></figure>
+
+<p>接下来安装依赖项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gem install bundle <span class="comment"># 等待强迫症患者可以像我一样，在最后加个-V，这样它会告诉你已经进行到哪里</span></div><div class="line">rbenv rehash</div><div class="line">bundle install</div></pre></td></tr></table></figure>
+
+<p>安装默认的Octopress主题</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rake install <span class="comment"># 若提示错误可尝试在其前加上bundle exec(原因是某些版本不一致)</span></div></pre></td></tr></table></figure>
+
+<h3 id="配置github">配置github</h3>
+<p>要想把页面展示在<a href="https://github.com/" target="_blank" rel="external">github</a>上，请保证你已经注册了一个github帐号，然后创建一个名为<code>你的用户名.github.io</code>的仓库，并保存下它的github地址<code>example: https://github.com/yedeying999/yedeying999.github.io</code></p>
+<h3 id="配置octopress">配置octopress</h3>
+<p>进入octopress文件夹</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> octopress</div></pre></td></tr></table></figure>
+
+<p>编辑配置文件<code>_config.yml</code>，修改其中的<code>url</code>，填上刚刚的github仓库地址，然后还有就是<code>title</code> <code>subtitle</code> <code>author</code>这些，名字都写的很清楚了，根据自己的来填</p>
+<p>接着，建议把文件末部的twitter, facebook, google plus等配置给注释掉，因为这些都是GFW以外的东西，会导致网页速度缓慢，同理，修改定制文件/source/_includes/custom/head.html 把google的自定义字体去掉。</p>
+<h3 id="开始部署">开始部署</h3>
+<p>执行以下命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 不行加bundle exec，原理同上，下同</span></div><div class="line">rake setup_github_pages  <span class="comment">#命令会要求我们输入github地址，还是刚刚那个仓库地址</span></div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rake new_post[<span class="string">'title'</span>]</div></pre></td></tr></table></figure>
+
+<p>然后进入<code>source/_post</code>中会看到20xx-xx-xx-title.md，title是自定义的，然后我们就可以通过编辑这个markdown文档来写博客啦，写完之后</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rake generate <span class="comment"># 把source里面的内容，生成到_deploy文件夹</span></div><div class="line">rake deploy   <span class="comment"># 把_deploy的内容上传到github上</span></div><div class="line"><span class="comment"># 以上两命令在每次写新博文时都要执行一次</span></div><div class="line">rake preview  <span class="comment"># 可通过该命令在本地浏览生成的博客，地址http://localhost:4000</span></div></pre></td></tr></table></figure>
+
+<h3 id="完成">完成</h3>
+<p>做完这一切后，我们就可以通过<code>http://你的用户名.github.io</code>来访问你的博客了</p>
+<h3 id="一些小技巧">一些小技巧</h3>
+<p>作为一个懒人，我当然不想每次都敲那么长命令来写博客啦，所以</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim ~/deploy.sh</div><div class="line">vim ~/new.sh</div></pre></td></tr></table></figure>
+
+<p>分别加入以下内容</p>
+<figure class="highlight sh"><figcaption><span>deplog.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/octopress</div><div class="line">bundle <span class="keyword">exec</span> rake generate</div><div class="line">bundle <span class="keyword">exec</span> rake deploy</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight sh"><figcaption><span>new.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/octopress</div><div class="line">bundle <span class="keyword">exec</span> rake new_post[<span class="variable">$1</span>]</div></pre></td></tr></table></figure>
+
+<p>然后，为普通用户添加执行权限</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> chmod a+x deploy.sh</div><div class="line"><span class="built_in">sudo</span> chmod a+x new.sh</div></pre></td></tr></table></figure>
+
+<p>大家应该都看得出，deploy就是发布的懒操作，而new就是新建博客的懒操作，用法如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./new.sh name <span class="comment"># name就是新博文的名字</span></div><div class="line">./deploy.sh</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yedeying999.github.io/2014/04/28/yong-octopressda-jian-github-page/" data-id="dbglnpwb7jnsmy6h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/28/audio-and-video-biao-qian/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          标签audio及其用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/22/install-ruby/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">install ruby and ruby gem</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Yedeying<br>
+      <a href="https://github.com/ken8203/hexo-theme-alberta" target="_blank">Alberta</a> by <a href="http://jaychung.tw" target="_blank">jaychung</a>. Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Thank <a href="http://subtlepatterns.com/" target="_blank">Subtlepatterns</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//imsky.github.io/holder/holder.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
